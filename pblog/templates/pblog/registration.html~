@@ -1,0 +1,77 @@
+{% extends 'pblog/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+
+<header class="intro-header" style="background-image: url({% static "img/contact-bg.jpg" %}) ">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="page-heading">
+                    <h1>Registartion</h1>
+                    <!--                    <hr class="small">
+                                        <span class="subheading">Have questions? I have answers (maybe).</span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <p> Please Fill Fields For Login</p>
+            <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+            <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+            <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+            <form method='post'>{% csrf_token %}
+
+                {% for field in form %}
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 ">
+                        <!-- Render the field label tag -->
+                        <span> {{ field.label_tag }}</span>
+                        <!-- If the field is required, display a * next to the field label -->
+                        {% if field.field.required %}
+                        *
+                        {% endif %}
+                        <br/>
+                        <!-- Render the input field -->
+                        <span> {{ field }}</span>
+                        <!-- Iterate over the field's errors, if any and display
+                 them one by one in a error alert
+                        -->
+                        {% if field.errors %}
+                        <p class="error">
+                            {% for error in field.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+                <br>  
+                <div id="success"></div>
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+<script>
+    $(function(){
+       $("input").css({"width":"50%","border":"1px solid #D0D0D0 "});
+    });
+</script>
+
+{% endblock %}

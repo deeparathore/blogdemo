@@ -1,0 +1,54 @@
+{% extends 'pblog/base.html' %}
+  {% block content %}
+     {% load staticfiles %}
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url({% static "img/home-bg.jpg" %}) ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Express Yourself</h1>
+<!--                        <hr class="small">
+                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              {% if postdata %}  
+               {% for i in postdata %}
+                <div class="post-preview">
+                    <a href="#">
+                        <h4 class="post-title">
+                            {{ i.title | capfirst}}
+                        </h4>
+                        <h4 class="post-subtitle">
+                          {{ i.message | safe }}
+                       </h4>
+                    </a>
+                    <span class="post-meta">Posted by <a href="#">{{i.username}}</a> on {{i.date}}  </span>
+                    <span class="pull-right"><a href="{% url 'pblog:post_detail' i.post_id %}" class="">Read More</a></span>
+                </div>
+                <hr>
+             {% endfor %}
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <a href="#">Older Posts &rarr;</a>
+                    </li>
+                </ul>
+                {% else %}
+                <center><h2>No Post Available</h2></center>
+                 {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+  {% endblock %}
